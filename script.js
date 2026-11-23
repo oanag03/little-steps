@@ -8,7 +8,12 @@ let tasks = [];
 
 function updateProgress() {
   const remaining = tasks.filter(task => !task.done).length;
-  progress.textContent = `Ai ${remaining} activități de făcut.`;
+
+  if (tasks.length > 0 && remaining === 0) {
+    progress.textContent = "Bravo! Ai terminat tot! 🎉";
+  } else {
+    progress.textContent = `Ai ${remaining} activități de făcut.`;
+  }
 }
 
 form.addEventListener("submit", function(event) {
