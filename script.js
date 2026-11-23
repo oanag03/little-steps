@@ -27,23 +27,36 @@ form.addEventListener("submit", function(event) {
   input.value = "";
 });
 
+
 function renderTasks() {
   list.innerHTML = "";
 
   tasks.forEach((task, index) => {
     const li = document.createElement("li");
-    li.textContent = task.text;
+
+    const taskText = document.createElement("span");
+    taskText.textContent = task.text;
 
     if (task.done) li.classList.add("done");
 
-    li.addEventListener("click", () => {
+    taskText.addEventListener("click", () => {
       tasks[index].done = !tasks[index].done;
       renderTasks();
     });
 
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Șterge";
+    deleteButton.style.marginLeft = "10px";
+
+    deleteButton.addEventListener("click", () => {
+      tasks.splice(index, 1);
+      renderTasks();
+    });
+
+    li.appendChild(taskText);
+    li.appendChild(deleteButton);
     list.appendChild(li);
   });
 
   updateProgress();
 }
- 
